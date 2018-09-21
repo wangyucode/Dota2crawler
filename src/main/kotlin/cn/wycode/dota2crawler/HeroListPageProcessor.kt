@@ -20,12 +20,10 @@ class HeroListPageProcessor : PageProcessor {
             if ("英雄" == name) {
                 val table = page.html.css("table")
                 val links = table.links().all()
-                println(this)
                 page.addTargetRequests(links)
             } else if ("力量" == name || "智力" == name || "敏捷" == name) {
                 type = name
             } else {
-                println(this)
                 page.putField("name", name)
                 page.putField("type", type)
                 val infoBox = page.html.xpath("//table[@class='infobox']")
