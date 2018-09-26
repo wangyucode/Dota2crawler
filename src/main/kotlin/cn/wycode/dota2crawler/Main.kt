@@ -7,6 +7,16 @@ import java.sql.SQLException
 import java.util.*
 
 fun main(args: Array<String>) {
+//    crawlHeroList()
+    crawNews()
+
+}
+
+fun crawNews() {
+
+}
+
+fun crawlHeroList() {
     //连接数据库
     Class.forName("org.h2.Driver")
     val resourceBundle = ResourceBundle.getBundle("application")
@@ -26,5 +36,4 @@ fun main(args: Array<String>) {
             .addPipeline(ConsolePipeline())
             .addPipeline(H2Pipeline(con))
             .run()
-
 }
