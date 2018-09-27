@@ -16,7 +16,8 @@ class HeroListPageProcessor : PageProcessor {
 
     override fun process(page: Page?) {
         if (page != null) {
-            val name = page.html.xpath("//h1[@class='firstHeading']/text()").get()
+            val name = page.html.xpath("//h1[@class='firstHeading']/text()").get().trim()
+            println("正在爬$name")
             if ("英雄" == name) {
                 val table = page.html.css("table")
                 val links = table.links().all()
@@ -27,7 +28,7 @@ class HeroListPageProcessor : PageProcessor {
                 page.putField("name", name)
                 page.putField("type", type)
                 val infoBox = page.html.xpath("//table[@class='infobox']")
-                val imageUrl = infoBox.xpath("//tbody/tr[2]/td/a/img/@src").get()
+                val imageUrl = infoBox.xpath("//tbody/tr[2]/td/a/img/@src").get().trim()
                 page.putField("imageUrl", imageUrl)
             }
         }
