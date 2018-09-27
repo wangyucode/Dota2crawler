@@ -112,7 +112,12 @@ class HeroDetailProcessor : PageProcessor {
                     val skillAttrs = skillBox.xpath("//div[@class='skill_info']/ul/li").nodes()
                     val abilityAttrs = HashMap<String, String>()
                     for (skillAttr in skillAttrs) {
-                        val keyText = skillAttr.xpath("//span/text()").get().trim().replace(":", "").replace("：", "")
+                        var keyText = skillAttr.xpath("//span/text()").get().trim().replace(":", "").replace("：", "").replace("\\n", "")
+                        if (heroName == "祈求者" && keyText.contains('（')) {
+                            keyText = keyText.split('（')[0]
+                            val element = skillAttr.xpath("//span/font/text()")
+                            keyText += "（$element）"
+                        }
                         val attr = skillAttr.xpath("//li/text()").get().trim()
                         abilityAttrs[keyText] = attr
                     }
