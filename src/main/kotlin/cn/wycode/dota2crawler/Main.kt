@@ -21,8 +21,8 @@ fun main(args: Array<String>) {
 
 fun crawlPropList() {
     Spider.create(PropListProcessor())
-            .addUrl("https://www.dota2.com.cn/items/index.htm")
-            .addUrl("https://www.dota2.com/jsfeed/heropediadata?feeds=itemdata&v=47284738sc2aWpANpKA&l=schinese")
+            .addUrl("http://www.dota2.com/jsfeed/heropediadata?feeds=itemdata&v=47284738sc2aWpANpKA&l=schinese")
+            .addUrl("http://www.dota2.com/items/json")
             .addPipeline(ConsolePipeline())
             .setSpiderListeners(listOf(ErrorListener()))
             .run()
