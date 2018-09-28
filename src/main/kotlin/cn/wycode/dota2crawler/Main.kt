@@ -14,12 +14,22 @@ fun main(args: Array<String>) {
     BasicConfigurator.configure()
     Logger.getRootLogger().level = Level.INFO
 //    crawlHeroList()
-    crawNews()
-
+//    crawlHeroDetail()
+    crawlPropList()
 }
 
 
-fun crawNews() {
+fun crawlPropList() {
+    Spider.create(PropListProcessor())
+            .addUrl("http://www.dota2.com/jsfeed/heropediadata?feeds=itemdata&v=47284738sc2aWpANpKA&l=schinese")
+            .addUrl("http://www.dota2.com/items/json")
+            .addPipeline(ConsolePipeline())
+            .setSpiderListeners(listOf(ErrorListener()))
+            .run()
+}
+
+
+fun crawlHeroDetail() {
     val connection = getDatabaseConnection()
     if (connection != null) {
         Spider.create(HeroDetailProcessor())
@@ -30,7 +40,6 @@ fun crawNews() {
                 .run()
     }
 }
-
 
 
 fun crawlHeroList() {
