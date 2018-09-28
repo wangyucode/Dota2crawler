@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Dota2crawler.iml" filepath="$PROJECT_DIR$/.idea/Dota2crawler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dota2crawler.iml" filepath="$PROJECT_DIR$/.idea/modules/dota2crawler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dota2crawler_main.iml" filepath="$PROJECT_DIR$/.idea/modules/dota2crawler_main.iml" group="dota2crawler" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dota2crawler_test.iml" filepath="$PROJECT_DIR$/.idea/modules/dota2crawler_test.iml" group="dota2crawler" />
     </modules>
   </component>
 </project>
