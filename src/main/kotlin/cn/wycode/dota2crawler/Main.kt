@@ -20,12 +20,15 @@ fun main(args: Array<String>) {
 
 
 fun crawlPropList() {
-    Spider.create(PropListProcessor())
-            .addUrl("http://www.dota2.com/jsfeed/heropediadata?feeds=itemdata&v=47284738sc2aWpANpKA&l=schinese")
-            .addUrl("http://www.dota2.com/items/json")
-            .addPipeline(ConsolePipeline())
-            .setSpiderListeners(listOf(ErrorListener()))
-            .run()
+    val connection = getDatabaseConnection()
+    if (connection != null) {
+        Spider.create(PropListProcessor())
+                .addUrl("http://www.dota2.com/jsfeed/heropediadata?feeds=itemdata&v=47284738sc2aWpANpKA&l=schinese")
+                .addUrl("http://www.dota2.com/items/")
+                .addPipeline(PropDetailH2Pipeline(connection))
+                .setSpiderListeners(listOf(ErrorListener()))
+                .run()
+    }
 }
 
 
