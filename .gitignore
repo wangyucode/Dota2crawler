@@ -1,7 +1,4 @@
 .gradle/
-.idea/dataSources/
-.idea/workspace.xml
-.idea/dataSources.xml
-.idea/dataSources.local.xml
+.idea/
 out/
 src/main/resources/application.properties

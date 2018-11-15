@@ -1,8 +1,5 @@
 package cn.wycode.dota2crawler
 
-import org.apache.log4j.BasicConfigurator
-import org.apache.log4j.Level
-import org.apache.log4j.Logger
 import us.codecraft.webmagic.Spider
 import us.codecraft.webmagic.pipeline.ConsolePipeline
 import java.sql.Connection
@@ -11,11 +8,11 @@ import java.sql.SQLException
 import java.util.*
 
 fun main(args: Array<String>) {
-    BasicConfigurator.configure()
-    Logger.getRootLogger().level = Level.INFO
+//    BasicConfigurator.configure()
+//    Logger.getRootLogger().level = Level.INFO
 //    crawlHeroList()
-//    crawlHeroDetail()
-    crawlPropList()
+    crawlHeroDetail()
+//    crawlPropList()
 }
 
 
