@@ -1,5 +1,6 @@
 package cn.wycode.dota2crawler
 
+import cn.wycode.dota2crawler.azhang.AbilityAzhangProcessor
 import cn.wycode.dota2crawler.azhang.HeroAzhangH2Pipeline
 import cn.wycode.dota2crawler.azhang.HeroAzhangProcessor
 import us.codecraft.webmagic.Spider
@@ -15,7 +16,8 @@ fun main(args: Array<String>) {
 //    crawlHeroList()
 //    crawlHeroDetail()
 //    crawlPropList()
-    crawlHeroAzhangEffect()
+//    crawlHeroAzhangEffect()
+    crawlAzhangEffect()
 }
 
 
@@ -54,6 +56,18 @@ fun crawlHeroAzhangEffect() {
                 .setSpiderListeners(listOf(ErrorListener()))
                 .run()
     }
+}
+
+fun crawlAzhangEffect() {
+//    val connection = getDatabaseConnection()
+//    if (connection != null) {
+    Spider.create(AbilityAzhangProcessor())
+            .addUrl("https://dota2-zh.gamepedia.com/%E9%98%BF%E5%93%88%E5%88%A9%E5%A7%86%E7%A5%9E%E6%9D%96/%E5%8D%87%E7%BA%A7%E7%9A%84%E6%8A%80%E8%83%BD")
+            .addPipeline(ConsolePipeline())
+//                .addPipeline(HeroAzhangH2Pipeline(connection))
+            .setSpiderListeners(listOf(ErrorListener()))
+            .run()
+//    }
 }
 
 
