@@ -3,5 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/kotlin/cn/wycode/dota2crawler/H2Pipeline.kt" dialect="H2" />
     <file url="file://$PROJECT_DIR$/src/main/kotlin/cn/wycode/dota2crawler/HeroDetailH2Pipeline.kt" dialect="H2" />
+    <file url="PROJECT" dialect="H2" />
   </component>
 </project>

@@ -9,19 +9,19 @@ import java.sql.PreparedStatement
 
 class HeroDetailH2Pipeline(con: Connection) : Pipeline {
 
-    private val iconSql ="UPDATE DOTA2HERO SET ICON=? WHERE NAME=?"
+    //    private val iconSql ="UPDATE DOTA2HERO SET ICON=? WHERE NAME=?"
 //    private val detailSql = "MERGE INTO HERO_DETAIL(NAME,ATTACK_TYPE,OTHER_NAME,STRENGTH_START,STRENGTH_GROW,AGILITY_START,AGILITY_GROW,INTELLIGENCE_START,INTELLIGENCE_GROW,ATTACK_POWER,ATTACK_SPEED,ARMOR,SPEED,STORY,TALENT25LEFT,TALENT25RIGHT,TALENT20LEFT,TALENT20RIGHT,TALENT15LEFT,TALENT15RIGHT,TALENT10LEFT,TALENT10RIGHT) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
-//    private val abilitySql = "MERGE INTO HERO_ABILITY(NAME,ANNOTATION,COOL_DOWN,DESCRIPTION,HERO_NAME,IMAGE_URL,MAGIC_CONSUMPTION,TIPS) VALUES(?,?,?,?,?,?,?,?) "
-//    private val attributeSql = "MERGE INTO HERO_ABILITY_ATTRIBUTES(HERO_ABILITY_NAME, ATTRIBUTES, ATTRIBUTES_KEY) VALUES(?,?,?) "
-    private val iconStatement: PreparedStatement
+    private val abilitySql = "select * from HERO_ABILITY WHERE NAME=?"
+    //    private val attributeSql = "MERGE INTO HERO_ABILITY_ATTRIBUTES(HERO_ABILITY_NAME, ATTRIBUTES, ATTRIBUTES_KEY) VALUES(?,?,?) "
+//    private val iconStatement: PreparedStatement
 //    private val detailStatement: PreparedStatement
-//    private val abilityStatement: PreparedStatement
+    private val abilityStatement: PreparedStatement
 //    private val attributeStatement: PreparedStatement
 
     init {
-        iconStatement = con.prepareStatement(iconSql)
+//        iconStatement = con.prepareStatement(iconSql)
 //        detailStatement = con.prepareStatement(detailSql)
-//        abilityStatement = con.prepareStatement(abilitySql)
+        abilityStatement = con.prepareStatement(abilitySql)
 //        attributeStatement = con.prepareStatement(attributeSql)
     }
 
@@ -30,12 +30,12 @@ class HeroDetailH2Pipeline(con: Connection) : Pipeline {
         if (resultItems.all.isNotEmpty()) {
             val name = resultItems.all.getValue("name") as String
 
-            iconStatement.setString(1,resultItems.all.getValue("icon") as String)
-            iconStatement.setString(2,name)
-
-            if (iconStatement.executeUpdate() > 0) {
-                println("$name icon更新成功！")
-            }
+//            iconStatement.setString(1,resultItems.all.getValue("icon") as String)
+//            iconStatement.setString(2,name)
+//
+//            if (iconStatement.executeUpdate() > 0) {
+//                println("$name icon更新成功！")
+//            }
 
 //            detailStatement.setString(1, name)
 //            detailStatement.setString(2, resultItems.all.getValue("attackType") as String)
@@ -60,10 +60,11 @@ class HeroDetailH2Pipeline(con: Connection) : Pipeline {
 //            detailStatement.setString(21, resultItems.all.getValue("talent10Left") as String)
 //            detailStatement.setString(22, resultItems.all.getValue("talent10Right") as String)
 //            if (detailStatement.executeUpdate() > 0) {
-//                println("$name 插入成功！")
-//                val abilities = resultItems.all.getValue("abilities") as List<HeroAbility>
-//                for (ability in abilities) {
-//                    abilityStatement.setString(1, ability.name)
+            println("开始修改 $name 技能顺序")
+            val abilities = resultItems.all.getValue("abilities") as List<HeroAbility>
+            for (i in 0 until abilities.size) {
+                val ability = abilities[i]
+                abilityStatement.setString(1, ability.name)
 //                    abilityStatement.setString(2, ability.annotation)
 //                    abilityStatement.setString(3, ability.coolDown)
 //                    abilityStatement.setString(4, ability.description)
@@ -72,8 +73,9 @@ class HeroDetailH2Pipeline(con: Connection) : Pipeline {
 //                    abilityStatement.setString(7, ability.magicConsumption)
 //                    abilityStatement.setString(8, ability.tips)
 //
-//                    if (abilityStatement.executeUpdate() > 0) {
-//                        println("${ability.name} 插入成功！")
+
+                if (abilityStatement.executeQuery().next()) {
+//                    println("${ability.name} 设置为 ${i + 1}")
 //                        for (attr in ability.attributes){
 //                            attributeStatement.setString(1, ability.name)
 //                            attributeStatement.setString(2, attr.value)
@@ -83,8 +85,10 @@ class HeroDetailH2Pipeline(con: Connection) : Pipeline {
 //                            }
 //                        }
 //                    }
-//                }
-//            }
+                }else{
+                    println("${ability.name} 不存在")
+                }
+            }
         }
     }
 }

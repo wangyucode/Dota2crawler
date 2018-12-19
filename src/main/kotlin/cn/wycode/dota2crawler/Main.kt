@@ -15,10 +15,10 @@ fun main(args: Array<String>) {
 //    BasicConfigurator.configure()
 //    Logger.getRootLogger().level = Level.INFO
 //    crawlHeroList()
-//    crawlHeroDetail()
+    crawlHeroDetail()
 //    crawlPropList()
 //    crawlHeroAzhangEffect()
-    crawlAzhangEffect()
+//    crawlAzhangEffect()
 }
 
 

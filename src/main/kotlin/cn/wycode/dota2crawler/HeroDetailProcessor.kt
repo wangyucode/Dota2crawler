@@ -24,14 +24,11 @@ class HeroDetailProcessor : PageProcessor {
                 val heroInfo = page.html.xpath("//div[@class='hero_info']")
                 val heroName = heroInfo.xpath("//div[@class='hero_name']/text()").get().trim()
                 page.putField("name", heroName)
-                val heroIcon = heroInfo.xpath("//div[@class='hero_name']/img/@src").get().trim()
-                page.putField("icon", heroIcon)
+//                val heroIcon = heroInfo.xpath("//div[@class='hero_name']/img/@src").get().trim()
+//                page.putField("icon", heroIcon)
 //                val infoList = heroInfo.xpath("//li[@class='clearfix']").nodes()
 //                val attackType = infoList[0].xpath("//p/span/text()").get().trim()
 //                page.putField("attackType", attackType)
-//                //TODO 爬取官网可以在列表直接获取到阵营，所以在详情去掉此字段
-////                val camp = infoList[2].xpath("//p/text()").get().trim()
-////                page.putField("camp", camp)
 //
 //                val otherName = infoList[3].xpath("//p/text()").get().trim()
 //                page.putField("otherName", otherName)
@@ -87,12 +84,11 @@ class HeroDetailProcessor : PageProcessor {
 //                val talent10Right = talentBox.xpath("//li[4]/div[3]/text()").get().trim()
 //                page.putField("talent10Left", talent10Left)
 //                page.putField("talent10Right", talent10Right)
-//                //ability
-//                val skillBoxes = page.html.xpath("//dl[@id='focus_dl']/dd").nodes()
-//                val abilities = ArrayList<HeroAbility>()
-//                for (skillBox in skillBoxes) {
-//
-//                    val name = skillBox.xpath("//p[@class='skill_intro']/span/text()").get().trim()
+                //ability
+                val skillBoxes = page.html.xpath("//dl[@id='focus_dl']/dd").nodes()
+                val abilities = ArrayList<HeroAbility>()
+                for (skillBox in skillBoxes) {
+                    val name = skillBox.xpath("//p[@class='skill_intro']/span/text()").get().trim()
 //                    val description = skillBox.xpath("//p[@class='skill_intro']/text()").get().trim()
 //                    val imageUrl = skillBox.xpath("//img[@class='skill_b']/@src").get()
 //                    val annotation = skillBox.xpath("//div[@class='skill_bot']/text()").get().trim()
@@ -122,11 +118,11 @@ class HeroDetailProcessor : PageProcessor {
 //                        val attr = skillAttr.xpath("//li/text()").get().trim()
 //                        abilityAttrs[keyText] = attr
 //                    }
-//                    val heroAbility = HeroAbility(name, heroName, imageUrl, annotation, description, magicConsumption, coolDown, tips, abilityAttrs)
-//                    println(heroAbility.toString())
-//                    abilities.add(heroAbility)
-//                }
-//                page.putField("abilities", abilities)
+                    val heroAbility = HeroAbility(name, heroName)
+                    println(heroAbility.toString())
+                    abilities.add(heroAbility)
+                }
+                page.putField("abilities", abilities)
             }
         }
     }
